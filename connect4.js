@@ -5,11 +5,11 @@
  * board fills (tie)
  */
 
-var WIDTH = 7;
-var HEIGHT = 6;
+const WIDTH = 7; //changed to const
+const HEIGHT = 6;
 
-var currPlayer = 1; // active player: 1 or 2
-var board = []; // array of rows, each row is array of cells  (board[y][x])
+let currPlayer = 1; // active player: 1 or 2 - changed to let
+let board = []; // array of rows, each row is array of cells  (board[y][x])
 
 /** makeBoard: create in-JS board structure:
  *    board = array of rows, each row is array of cells  (board[y][x])
@@ -17,31 +17,41 @@ var board = []; // array of rows, each row is array of cells  (board[y][x])
 
 function makeBoard() {
   // TODO: set "board" to empty HEIGHT x WIDTH matrix array
+  
+  let boardWidth  = new Array(WIDTH);
+  boardWidth.fill(null);
+
+  for (let i = 0; i < HEIGHT; i++) {
+    board.push(boardWidth);
+  }
+
 }
 
 /** makeHtmlBoard: make HTML table and row of column tops. */
 
 function makeHtmlBoard() {
   // TODO: get "htmlBoard" variable from the item in HTML w/ID of "board"
+  let htmlBoard = document.getElementById("board");
 
   // TODO: add comment for this code
-  var top = document.createElement("tr");
-  top.setAttribute("id", "column-top");
-  top.addEventListener("click", handleClick);
+  let top = document.createElement("tr"); //creating a top row element to use
+  top.setAttribute("id", "column-top"); //giving new element an id of column-top
+  top.addEventListener("click", handleClick); //creating an event listener so the top row is clickable and circles can appear
 
-  for (var x = 0; x < WIDTH; x++) {
-    var headCell = document.createElement("td");
+  //creating 7 headcells to append to our top row element
+  for (let x = 0; x < WIDTH; x++) {
+    let headCell = document.createElement("td");
     headCell.setAttribute("id", x);
     top.append(headCell);
   }
   htmlBoard.append(top);
 
-  // TODO: add comment for this code
+  //nested loop - outer loop is the height so it happens 6 times, making 7 elements within one row
   for (var y = 0; y < HEIGHT; y++) {
     const row = document.createElement("tr");
     for (var x = 0; x < WIDTH; x++) {
       const cell = document.createElement("td");
-      cell.setAttribute("id", `${y}-${x}`);
+      cell.setAttribute("id", `${y}-${x}`); //now we can identify each individual cell
       row.append(cell);
     }
     htmlBoard.append(row);
